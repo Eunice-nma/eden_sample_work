@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dream_burger_sample_work/modules/sign_in/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,8 +16,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(milliseconds: 1500),
-      () {},
+      const Duration(milliseconds: 1800),
+      () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const SignInScreen(),
+          ),
+        );
+      },
     );
   }
 
