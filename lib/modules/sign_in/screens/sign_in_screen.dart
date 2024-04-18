@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/components/app_button.dart';
 import '../../../utils/text_styles.dart';
+import '../../order/screens/order_details_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -44,7 +45,13 @@ class SignInScreen extends StatelessWidget {
               ),
               AppButton(
                 'Sign in With Google',
-                ontap: () {},
+                ontap: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const OrderDetailsScreen(),
+                    ),
+                  );
+                },
                 icon: 'assets/images/google_logo.png',
                 isSecondary: true,
               ),
