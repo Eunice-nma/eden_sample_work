@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/components/app_stepper_dot_icon.dart';
 import '../../../utils/text_styles.dart';
-import '../controller/order_vm.dart';
+import '../viewmodel/order_viewmodel.dart';
 
 class TrackOrderScreen extends StatefulWidget {
   const TrackOrderScreen({super.key});
