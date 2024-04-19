@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -12,9 +14,16 @@ class OrderViewModel extends ChangeNotifier {
   OrderViewModel() {
     _messageSubscription =
         Streams.instance.messageController.stream.listen((message) {
-      _aciveIndex = int.parse(message.data.toString());
-      dummyOrder.status = OrderStatus.values[_aciveIndex];
-      notifyListeners();
+      try {
+        int index = int.parse(message.data.toString());
+        if (index <= 6) {
+          _activeIndex = index;
+          dummyOrder.status = OrderStatus.values[_activeIndex];
+          notifyListeners();
+        }
+      } catch (e) {
+        log("Error parsing index from message: ${message.data}. Error: $e");
+      }
     });
   }
 
@@ -30,8 +39,8 @@ class OrderViewModel extends ChangeNotifier {
 
   final DateFormat formatter = DateFormat('EEE, MMM d, yyyy');
 
-  int _aciveIndex = 1;
-  int get stepperIndex => _aciveIndex - 1;
+  int _activeIndex = 1;
+  int get stepperIndex => _activeIndex - 1;
 
   @override
   void dispose() {
