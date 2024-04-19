@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 import '../../../utils/components/app_button.dart';
 import '../../../utils/text_styles.dart';
 import '../../order/screens/order_details_screen.dart';
-import '../controller/sign_in_controller.dart';
+import '../viewmodel/sign_in_viewmodel.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var signinController = Provider.of<SigninController>(context);
+    var signinController = Provider.of<SigninViewmodel>(context);
     return Scaffold(
       body: Center(
         child: Padding(

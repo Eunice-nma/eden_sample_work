@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:dream_burger_sample_work/modules/order/controller/order_vm.dart';
+import 'package:dream_burger_sample_work/modules/order/viewmodel/order_viewmodel.dart';
 import 'package:dream_burger_sample_work/modules/order/model/order.dart';
 import 'package:dream_burger_sample_work/utils/components/app_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/text_styles.dart';
-import '../../sign_in/controller/sign_in_controller.dart';
+import '../../sign_in/viewmodel/sign_in_viewmodel.dart';
 import '../../sign_in/screens/sign_in_screen.dart';
 import 'track_order_screen.dart';
 
@@ -18,8 +18,8 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<SigninController>(context).user;
-    var signinController = Provider.of<SigninController>(context);
+    final user = Provider.of<SigninViewmodel>(context).user;
+    var signinController = Provider.of<SigninViewmodel>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
