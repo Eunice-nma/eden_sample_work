@@ -1,10 +1,12 @@
 import 'package:another_stepper/another_stepper.dart';
-import 'package:another_stepper/widgets/another_stepper.dart';
+import 'package:dream_burger_sample_work/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/components/app_stepper_dot_icon.dart';
 import '../../../utils/text_styles.dart';
+import '../controller/order_vm.dart';
 
 class TrackOrderScreen extends StatefulWidget {
   const TrackOrderScreen({super.key});
@@ -14,17 +16,6 @@ class TrackOrderScreen extends StatefulWidget {
 }
 
 class _TrackOrderScreenState extends State<TrackOrderScreen> {
-  int activeIndex = 2;
-
-  List stepperData = [
-    {"title": "Order Placed", "subTitle": "Your order has been placed"},
-    {"title": "Preparing", "subTitle": "Your order is being prepared"},
-    {
-      "title": "On the way",
-      "subTitle": "Our delivery executive is on the way to deliver your item"
-    },
-    {"title": "Delivered", "subTitle": ""}
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +23,6 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -60,29 +50,44 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
               const SizedBox(
                 height: 24,
               ),
-              AnotherStepper(
-                stepperList: List<StepperData>.generate(
-                  stepperData.length,
-                  (i) => StepperData(
-                    title: StepperText(stepperData[i]["title"],
-                        textStyle: activeIndex >= i
-                            ? AppTextStyles.bodyText1Bold
-                            : AppTextStyles.bodyText1),
-                    subtitle: StepperText(
-                      stepperData[i]["subTitle"],
-                      textStyle: AppTextStyles.bodyText2,
-                    ),
-                    iconWidget: AppStepperDotIcon(activeIndex >= i),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Consumer<OrderViewModel>(builder: (_, viewModel, __) {
+                        return AnotherStepper(
+                          stepperList: List<StepperData>.generate(
+                            OrderStatus.values.length,
+                            (i) => StepperData(
+                              title: StepperText(
+                                  'Order ${OrderStatus.values[i].nameForDisplay}',
+                                  textStyle: viewModel.stepperIndex >= i
+                                      ? AppTextStyles.bodyText1Bold
+                                      : AppTextStyles.bodyText1),
+                              subtitle: StepperText(
+                                viewModel.detailedStatusDescriptions[
+                                        OrderStatus.values[i]] ??
+                                    '',
+                                textStyle: AppTextStyles.bodyText2,
+                              ),
+                              iconWidget: AppStepperDotIcon(
+                                  viewModel.stepperIndex >= i),
+                            ),
+                          ),
+                          activeIndex: viewModel.stepperIndex,
+                          stepperDirection: Axis.vertical,
+                          activeBarColor: AppColors.greenColor,
+                          inActiveBarColor: AppColors.lightGreenColor,
+                          verticalGap: 40,
+                          iconWidth: 40,
+                          iconHeight: 40,
+                        );
+                      })
+                    ],
                   ),
                 ),
-                activeIndex: activeIndex,
-                stepperDirection: Axis.vertical,
-                activeBarColor: AppColors.greenColor,
-                inActiveBarColor: AppColors.lightGreenColor,
-                verticalGap: 40,
-                iconWidth: 40,
-                iconHeight: 40,
-              )
+              ),
             ],
           ),
         ),

@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'colors.dart';
 
 class AppTextStyles {
-  static const TextStyle heading1 = TextStyle(
-    fontSize: 22,
-    fontFamily: 'Domine',
-    fontWeight: FontWeight.w600,
-    color: AppColors.darkGreenColor,
-  );
   static const TextStyle heading1Yellow = TextStyle(
     fontSize: 22,
     fontFamily: 'Domine',
@@ -17,6 +10,12 @@ class AppTextStyles {
   );
   static const TextStyle heading2 = TextStyle(
     fontSize: 20,
+    fontFamily: 'Domine',
+    fontWeight: FontWeight.w600,
+    color: AppColors.darkGreenColor,
+  );
+  static const TextStyle heading3 = TextStyle(
+    fontSize: 18,
     fontFamily: 'Domine',
     fontWeight: FontWeight.w600,
     color: AppColors.darkGreenColor,
@@ -41,8 +40,8 @@ class AppTextStyles {
     fontFamily: 'Lato',
   );
 
-  static const TextStyle bodyText3 = TextStyle(
-    fontSize: 12,
+  static const TextStyle bodyText2Bold = TextStyle(
+    fontSize: 14,
     color: AppColors.darkGreenColor,
     fontWeight: FontWeight.bold,
     fontFamily: 'Lato',
@@ -62,12 +61,6 @@ class AppTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: AppColors.darkGreenColor,
-    fontFamily: 'Lato',
-  );
-  static const TextStyle buttonTextLight = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
-    color: AppColors.lightGreenColor,
     fontFamily: 'Lato',
   );
 }

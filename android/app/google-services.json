@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "300536682296",
+    "project_id": "dream-burger-sample-work",
+    "storage_bucket": "dream-burger-sample-work.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300536682296:android:0ef98085473df3c07a93cd",
+        "android_client_info": {
+          "package_name": "com.example.dream_burger_sample_work"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJgPTODe81yqAShWNbpbglaABG3Ik8SYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

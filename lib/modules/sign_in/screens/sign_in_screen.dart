@@ -1,14 +1,20 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:dream_burger_sample_work/utils/components/app_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/components/app_button.dart';
 import '../../../utils/text_styles.dart';
 import '../../order/screens/order_details_screen.dart';
+import '../controller/sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var signinController = Provider.of<SigninController>(context);
     return Scaffold(
       body: Center(
         child: Padding(
@@ -45,24 +51,25 @@ class SignInScreen extends StatelessWidget {
               ),
               AppButton(
                 'Sign in With Google',
-                ontap: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const OrderDetailsScreen(),
-                    ),
-                  );
-                },
+                isLoading: signinController.isLoading,
                 icon: 'assets/images/google_logo.png',
-                isSecondary: true,
+                ontap: () async {
+                  bool signedIn = await signinController.signInWithGoogle();
+                  if (signedIn) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OrderDetailsScreen(),
+                      ),
+                    );
+                  } else {
+                    final error = signinController.error;
+                    if (error != null) {
+                      showToast(context, error);
+                    }
+                  }
+                },
               ),
-              const SizedBox(
-                height: 12,
-              ),
-              AppButton(
-                'Sign in With GitHub',
-                ontap: () {},
-                icon: 'assets/images/github_logo.png',
-              )
             ],
           ),
         ),

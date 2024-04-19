@@ -9,12 +9,12 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.ontap,
     this.icon,
-    this.isSecondary = false,
+    this.isLoading = false,
   });
   final String text;
   final Function ontap;
   final String? icon;
-  final bool isSecondary;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -25,33 +25,33 @@ class AppButton extends StatelessWidget {
         height: 64,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSecondary ? AppColors.white : AppColors.greenColor,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(24),
-          border: isSecondary
-              ? Border.all(
-                  width: 0.3,
-                  color: AppColors.greenColor.withOpacity(0.3),
-                )
-              : null,
+          border: Border.all(
+            width: 0.3,
+            color: AppColors.greenColor.withOpacity(0.3),
+          ),
         ),
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null) Image.asset(icon!),
-              const SizedBox(
-                width: 8,
-              ),
-              Flexible(
-                child: Text(
-                  text,
-                  style: isSecondary
-                      ? AppTextStyles.buttonText
-                      : AppTextStyles.buttonTextLight,
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  color: AppColors.yellowColor,
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (icon != null) Image.asset(icon!),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Flexible(
+                      child: Text(
+                        text,
+                        style: AppTextStyles.buttonText,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );
