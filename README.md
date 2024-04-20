@@ -1,16 +1,9 @@
 # dream_burger_sample_work
 
-A new Flutter project.
+A sample flutter application by Nma
 
-## Getting Started
+## How it works
 
-This project is a starting point for a Flutter application.
+This is a demo video on how to use the appliction
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Demo video](https://www.loom.com/share/01e6a81b9d184f69839d19f74cb965f4?sid=25001d21-3146-48c8-898d-5e7808cd3796)
