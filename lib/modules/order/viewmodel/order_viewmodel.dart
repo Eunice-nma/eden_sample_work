@@ -17,8 +17,8 @@ class OrderViewModel extends ChangeNotifier {
       try {
         int index = int.parse(message.data.toString());
         if (index <= OrderStatus.values.length - 1) {
-          _activeIndex = index;
-          dummyOrder.status = OrderStatus.values[_activeIndex];
+          _currentIndex = index;
+          dummyOrder.status = OrderStatus.values[_currentIndex!];
           notifyListeners();
         }
       } catch (e) {
@@ -33,8 +33,8 @@ class OrderViewModel extends ChangeNotifier {
 
   final DateFormat formatter = DateFormat('EEE, MMM d, yyyy');
 
-  int _activeIndex = 1;
-  int get stepperIndex => _activeIndex;
+  int? _currentIndex;
+  int get stepperIndex => _currentIndex ?? 0;
 
   Order dummyOrder = Order(
     id: '12344',
