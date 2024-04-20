@@ -1,5 +1,5 @@
 import 'package:ably_flutter/ably_flutter.dart';
-import 'package:dream_burger_sample_work/streams.dart';
+import 'package:dream_burger_sample_work/utils/streams.dart';
 import 'package:dream_burger_sample_work/utils/constant.dart';
 
 class AblyService {
@@ -15,8 +15,7 @@ class AblyService {
   }
 
   void createAblyRealtimeInstance() async {
-    var clientOptions = ClientOptions(
-        key: "geRY-g.-HZJ3A:c4ETIkWqyvcogFVX_xBrrXFRHVP6_e4uoaa_N0z5pts");
+    var clientOptions = ClientOptions(key: ablyKey);
     try {
       realtimeInstance = Realtime(options: clientOptions);
       orderChannel = realtimeInstance.channels.get(channelName);

@@ -10,11 +10,13 @@ class AppButton extends StatelessWidget {
     required this.ontap,
     this.icon,
     this.isLoading = false,
+    this.isSecondary = false,
   });
   final String text;
   final Function ontap;
   final String? icon;
   final bool isLoading;
+  final bool isSecondary;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +27,14 @@ class AppButton extends StatelessWidget {
         height: 64,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: isSecondary ? AppColors.greenColor : AppColors.white,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            width: 0.3,
-            color: AppColors.greenColor.withOpacity(0.3),
-          ),
+          border: isSecondary
+              ? null
+              : Border.all(
+                  width: 0.3,
+                  color: AppColors.greenColor.withOpacity(0.3),
+                ),
         ),
         child: Center(
           child: isLoading
@@ -47,7 +51,9 @@ class AppButton extends StatelessWidget {
                     Flexible(
                       child: Text(
                         text,
-                        style: AppTextStyles.buttonText,
+                        style: isSecondary
+                            ? AppTextStyles.buttonTextLight
+                            : AppTextStyles.buttonText,
                       ),
                     ),
                   ],

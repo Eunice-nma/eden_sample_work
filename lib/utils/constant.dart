@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 enum OrderStatus {
   placed,
   accepted,
@@ -19,4 +21,18 @@ extension OrderStatusExtension on OrderStatus {
   }
 }
 
+String formatPrice(double price) {
+  var formatter = NumberFormat.currency(locale: 'en_US', symbol: '');
+  return formatter.format(price);
+}
+
+String getFirstName(String name) {
+  name = name.trim();
+  final firstName = name.split(' ');
+  return firstName[0];
+}
+
 const String channelName = 'burger';
+
+const String ablyKey =
+    "geRY-g.-HZJ3A:c4ETIkWqyvcogFVX_xBrrXFRHVP6_e4uoaa_N0z5pts";

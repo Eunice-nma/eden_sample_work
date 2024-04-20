@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,6 +16,8 @@ class SigninViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   Future<bool> signInWithGoogle() async {
     _setLoading(true);
     try {
@@ -28,20 +32,35 @@ class SigninViewmodel extends ChangeNotifier {
       );
 
       UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+          await _auth.signInWithCredential(credential);
       _user = userCredential.user;
       _setLoading(false);
       return true;
     } catch (e) {
       error = e.toString();
+      log('ERROR:${e.toString()}');
       _setLoading(false);
       return false;
     }
   }
 
-  Future<bool> signOutFromGoogle() async {
+  Future<bool> signInWithGithub() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      GithubAuthProvider githubAuthProvider = GithubAuthProvider();
+      UserCredential userCredential =
+          await _auth.signInWithProvider(githubAuthProvider);
+      _user = userCredential.user;
+      return true;
+    } catch (e) {
+      error = e.toString();
+      log('ERROR:${e.toString()}');
+      return false;
+    }
+  }
+
+  Future<bool> signOut() async {
+    try {
+      await _auth.signOut();
       return true;
     } on Exception catch (_) {
       return false;

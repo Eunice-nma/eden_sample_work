@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:dream_burger_sample_work/utils/components/app_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +9,22 @@ import '../viewmodel/sign_in_viewmodel.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
+
+  void handleSignin(bool signinResponse, BuildContext context) {
+    if (signinResponse) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OrderDetailsScreen(),
+        ),
+      );
+    } else {
+      final error = Provider.of<SigninViewmodel>(context).error;
+      if (error != null) {
+        showToast(context, error);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +48,14 @@ class SignInScreen extends StatelessWidget {
                   style: AppTextStyles.bodyTextBig,
                   children: [
                     TextSpan(
-                      text: 'Join the ',
+                      text: 'Taste the ',
                     ),
                     TextSpan(
-                      text: 'Dream \n',
+                      text: 'Dreamy\n',
                       style: AppTextStyles.bodyTextBigYellow,
                     ),
                     TextSpan(
-                      text: 'Team',
+                      text: 'Delight',
                     ),
                   ],
                 ),
@@ -55,18 +69,22 @@ class SignInScreen extends StatelessWidget {
                 icon: 'assets/images/google_logo.png',
                 ontap: () async {
                   bool signedIn = await signinController.signInWithGoogle();
-                  if (signedIn) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OrderDetailsScreen(),
-                      ),
-                    );
-                  } else {
-                    final error = signinController.error;
-                    if (error != null) {
-                      showToast(context, error);
-                    }
+                  if (context.mounted) {
+                    handleSignin(signedIn, context);
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              AppButton(
+                'Sign in With Github',
+                icon: 'assets/images/github_logo.png',
+                isSecondary: true,
+                ontap: () async {
+                  bool signedIn = await signinController.signInWithGithub();
+                  if (context.mounted) {
+                    handleSignin(signedIn, context);
                   }
                 },
               ),

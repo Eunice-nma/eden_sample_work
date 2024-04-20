@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/colors.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/text_styles.dart';
 import '../../sign_in/viewmodel/sign_in_viewmodel.dart';
 import '../../sign_in/screens/sign_in_screen.dart';
@@ -32,8 +33,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () async {
-                        final signout =
-                            await signinController.signOutFromGoogle();
+                        final signout = await signinController.signOut();
                         if (signout) {
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -138,7 +138,7 @@ class OrderDetailsScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(
-            'Hi ${user.displayName}!',
+            'Hi ${getFirstName(user.displayName!)}!',
             style: AppTextStyles.heading1Yellow,
           ),
           const SizedBox(
@@ -221,7 +221,7 @@ class OrderDetailsScreen extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            'N ${order.item.price}',
+            'N ${formatPrice(order.item.price)}',
             style: AppTextStyles.bodyText1Bold,
           ),
         ],

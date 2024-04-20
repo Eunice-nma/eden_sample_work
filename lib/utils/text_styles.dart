@@ -63,4 +63,10 @@ class AppTextStyles {
     color: AppColors.darkGreenColor,
     fontFamily: 'Lato',
   );
+  static const TextStyle buttonTextLight = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: AppColors.white,
+    fontFamily: 'Lato',
+  );
 }

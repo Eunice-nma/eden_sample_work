@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 
-import '../../../streams.dart';
+import '../../../utils/streams.dart';
 import '../../../utils/constant.dart';
 import '../model/order.dart';
 
@@ -16,7 +16,7 @@ class OrderViewModel extends ChangeNotifier {
         Streams.instance.messageController.stream.listen((message) {
       try {
         int index = int.parse(message.data.toString());
-        if (index <= 6) {
+        if (index <= OrderStatus.values.length - 1) {
           _activeIndex = index;
           dummyOrder.status = OrderStatus.values[_activeIndex];
           notifyListeners();
@@ -27,12 +27,6 @@ class OrderViewModel extends ChangeNotifier {
     });
   }
 
-  Order dummyOrder = Order(
-    id: '12344',
-    status: OrderStatus.placed,
-    date: DateTime.now(),
-    item: OrderItem(name: 'Big Burger', quantity: 2, price: 2800),
-  );
   String get currentStatus => readableStatus[dummyOrder.status]!;
   String get currentStatusDescription =>
       detailedStatusDescriptions[dummyOrder.status]!;
@@ -40,13 +34,14 @@ class OrderViewModel extends ChangeNotifier {
   final DateFormat formatter = DateFormat('EEE, MMM d, yyyy');
 
   int _activeIndex = 1;
-  int get stepperIndex => _activeIndex - 1;
+  int get stepperIndex => _activeIndex;
 
-  @override
-  void dispose() {
-    _messageSubscription.cancel();
-    super.dispose();
-  }
+  Order dummyOrder = Order(
+    id: '12344',
+    status: OrderStatus.placed,
+    date: DateTime.now(),
+    item: OrderItem(name: 'Big Burger', quantity: 2, price: 2800),
+  );
 
   Map<OrderStatus, String> readableStatus = {
     OrderStatus.placed: "Your order has been placed.",
@@ -67,4 +62,10 @@ class OrderViewModel extends ChangeNotifier {
     OrderStatus.arrived: "Please don't keep the rider waiting.",
     OrderStatus.delivered: "We hope you enjoy your meal!",
   };
+
+  @override
+  void dispose() {
+    _messageSubscription.cancel();
+    super.dispose();
+  }
 }
